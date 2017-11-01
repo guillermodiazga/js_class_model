@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Module Pattern</title>
+</head>
+
+<body>
+   <div id="app-manager-wrapper" style="border: solid 1px red; padding: 10px; ; margin: 10px">
+        Red is the Manager Scope
+    <form action="" style="border: solid 1px red; padding: 10px; ; margin: 10px">
+        Red is the Manager Scope
+        <input type="text" id="text">
+        <button id="btn1">Ok</button>
+        <button id="loadManager2">Show and Load Manager2</button>
+        <div id="app-manager-2" style="display:none; border: solid 1px green; padding: 10px; margin: 10px">
+            Green is the Manager2 Scope
+            <input type="text">
+            <button id="btn2">Ok 2</button>
+            <button id="btn3">Perform action from parent</button>
+        </div>
+    </form>
+   </div>
+   
+   <ol reversed id="app-console" style="background-color: POWDERBLUE; padding: 50px; margin: 10px">
+       Custom Console
+    </ol>
+
+</body>
+
+</html>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script src="utils.js"></script>
+
+<script src="modules/BaseManager.js"></script>
+<script src="modules/Manager.js"></script>
+<script src="modules/Manager2.js"></script>
+
+
+<script>
+
+    config = {
+        scope: '#app-manager-wrapper',
+        selectors: {
+            static: {
+                form:  'form',
+                input: '#text',
+                okBtn: '#btn1',
+                loadManager2: '#loadManager2'
+            },
+            dynamic: {}
+        },
+        data:{
+            data1: 'abc'
+        }
+    };
+
+    //new Main.Manager(config);
+    manager = new Manager(config);
+    
+</script>
