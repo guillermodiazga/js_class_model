@@ -2,12 +2,14 @@
 
 class BaseManager {
     constructor(config) {
-        
+      config = config instanceof Object ? config : {};
+      
       console.info('super constructor');
       
       this.$selectors = {};
       this.$scope = $(config.scope);
       this.initSelectors(config);
+      this.parentManager = config.parentManager;
     }
 
     initSelectors(config) {
@@ -36,6 +38,18 @@ class BaseManager {
         console.error('Error: Init selectors ' + e)
       }
     }
+    
+ // 
+  getManager(manager) {
+    try {
+
+        var isInstanced = this.managers[manager] instanceof eval(manager);
+
+        return this.managers[manager] = (isInstanced) ? this.managers[manager] :  new this.managers[manager]({parentManager: this});
+    } catch(e) {
+        console.error('Error creating the instance ' + manager + ': ' + e);
+    }
+  }
 
 }
 

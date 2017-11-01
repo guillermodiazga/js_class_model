@@ -1,36 +1,29 @@
 'use strict';
 
 class Manager2 extends BaseManager {
-  constructor(parentManager){
+  constructor(config){
+    config = config instanceof Object ? config : {};
     
     console.info('constructor Manager 2');
-    
-    
-    var config = {
-        scope: '#app-manager-2',
-        selectors: {
-            static: {
-                input: 'input',
-                okBtn: '#btn2',
-                parentActionBtn: '#btn3'
-            },
-            dynamic: {}
+
+    config.scope = '#app-manager-2';
+    config.selectors = {
+        static: {
+            input: 'input',
+            okBtn: '#btn2',
+            parentActionBtn: '#btn3'
         },
-        data:{
-            data1: 'abc'
-        }
+        dynamic: {}
     };
 
     super(config);
-    
+
     this.$scope.show();
-    
-    this.parentManager =parentManager;
 
     this.bindListeners(this.$selectors)
   }
 
-  bindListeners ($sltrs) {
+  bindListeners($sltrs) {
     console.info('bindListeners Manager2');
  
     $sltrs.okBtn.click(this.okBtn);
@@ -40,6 +33,10 @@ class Manager2 extends BaseManager {
   
   okBtn () {
       console.info('Manager2 action');
+  }
+  
+  welcome() {
+    console.info('Welcome Manager2');
   }
 
 }

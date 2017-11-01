@@ -4,18 +4,29 @@ class Manager extends BaseManager {
   constructor(config) {
     console.info('constructor Manager');
 
+    config = config instanceof Object ? config : {};
+
+    config.scope = '#app-manager-wrapper';
+
+    config.selectors = {
+            static: {
+                form:  'form',
+                input: '#text',
+                okBtn: '#btn1',
+                loadManager2: '#loadManager2'
+            },
+            dynamic: {}
+        };
+
     // Call super constructor to build the selectors
     super(config);
-    
-    var self = this;
-    
-
-    this.bindListeners(this.$selectors);
-
-    console.info('instancia manager2');
 
     // Manager dependencies
-    this.manager2 = null;
+    this.managers = {
+        Manager2: Manager2
+    };
+
+    this.bindListeners(this.$selectors);
   }
 
   bindListeners($sltrs) {
@@ -41,15 +52,13 @@ class Manager extends BaseManager {
       e.preventDefault();
   }
 
-  getManager2() {
-    return this.manager2 = this.manager2 || new Manager2(this);
-  }
-
   loadManager2(e) {
+    var self = e.data.self;
 
-      e.data.self.getManager2();
+    // Create instance on Manager2
+    self.getManager('Manager2').welcome();
   } 
-  
+
   showAlert(e) {
 
       alert(e.data.msg);
